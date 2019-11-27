@@ -1,0 +1,13 @@
+[Unit]
+Description=Artifact Java Service
+
+[Service]
+WorkingDirectory=/home/{{ java_app_user }}
+ExecStart=/usr/bin/java -Xms128m -Xmx256m -jar temp.jar --server.port={{ javapp_service_port }}
+User={{ java_app_user }}
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

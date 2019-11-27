@@ -1,0 +1,8 @@
+---
+dependencies:
+  - role: sansible.users_and_groups
+    sansible_users_and_groups_groups:
+      - name: "{{ docker_group }}"
+    sansible_users_and_groups_users:
+      - name: "{{ docker_user }}"
+        group: "{{ docker_group }}"

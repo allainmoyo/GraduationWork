@@ -1,0 +1,13 @@
+---
+# defaults file for pavellucik.deploy_jar
+nexus_server_ip: '3.124.205.29'
+nexus_server_port: 8081
+maven_repository: maven-public1
+maven_groupid: java
+maven_artifactid: spring-boot-smoke-test-web-ui
+maven_extention: jar
+
+docker_group: docker
+docker_user: docker
+
+javapp_service_port: 8080

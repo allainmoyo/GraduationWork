@@ -1,0 +1,30 @@
+---
+# tasks file for pavellucik.docker
+  - include: install.yml
+    tags:
+      - docker_install
+
+  - include: uninstall.yml
+    tags:
+      - never
+      - docker_uninstall
+
+  - include: start.yml
+    tags:
+      - never
+      - docker_start
+
+  - include: stop.yml
+    tags:
+      - never
+      - docker_stop
+
+  - include: disable_autostart.yml
+    tags:
+      - never
+      - docker_disable
+
+  - include: enable_autostart.yml
+    tags:
+      - never
+      - docker_enable

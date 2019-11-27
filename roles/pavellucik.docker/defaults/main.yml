@@ -1,0 +1,24 @@
+---
+# defaults file for pavellucik.docker
+docker_edition: 'ce'
+docker_yum_repo_url: https://download.docker.com/linux/centos/docker-ce.repo
+
+uninstall_old_list:
+  - docker
+  - docker-client
+  - docker-client-latest
+  - docker-common
+  - docker-latest
+  - docker-latest-logrotate
+  - docker-logrotate
+  - docker-engine
+
+install_prerequisites_list:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+
+install_uninstall_list:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io

@@ -1,0 +1,7 @@
+---
+- name: Install Java8 from Amazon or CentOS repos
+  yum:
+    name: java-1.8.0-openjdk-devel
+    # name: java-1.8.0-openjdk
+    update_cache: yes
+    state: present

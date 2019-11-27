@@ -1,0 +1,65 @@
+---
+
+- name: Create Nexus vmoptions
+  become: yes
+  become_user: "{{ sansible_nexus_user }}"
+  template:
+    dest: "{{ sansible_nexus_directory_home }}/bin/nexus.vmoptions"
+    src: nexus.vmoptions.j2
+  register: sansible_nexus_config_changed
+
+- name: Create Nexus properties
+  become: yes
+  become_user: "{{ sansible_nexus_user }}"
+  template:
+    dest: "{{ sansible_nexus_directory_data }}/etc/nexus.properties"
+    src: nexus.properties.j2
+  register: sansible_nexus_config_changed
+
+- name: Lower Nexus disk space threshold
+  become: yes
+  become_user: "{{ sansible_nexus_user }}"
+  lineinfile:
+    backrefs: yes
+    dest: "{{ sansible_nexus_directory_home }}/etc/karaf/system.properties"
+    insertafter: EOF
+    line: "storage.diskCache.diskFreeSpaceLimit={{ sansible_nexus_configuration_disk_free_space_limit }}"
+    regexp: ^storage\.diskCache\.diskFreeSpaceLimit
+  when: sansible_nexus_configuration_disk_free_space_limit is not none
+  register: sansible_nexus_config_changed
+
+- name: Start Nexus service if enabled
+  become: yes
+  service:
+    enabled: yes
+    name: nexus
+    state: started
+  when:
+    - sansible_nexus_service_start_on_boot
+    - not sansible_nexus_config_changed.changed
+  tags:
+    - skip_ansible_lint
+
+- name: Ensure Nexus service is restarted
+  become: yes
+  service:
+    name: nexus
+    state: restarted
+  when:
+    - sansible_nexus_service_start_on_boot
+    - sansible_nexus_config_changed.changed
+  tags:
+    - skip_ansible_lint
+
+- name: Wait for Nexus port if started
+  wait_for:
+    port: "{{ sansible_nexus_port }}"
+    state: started
+    timeout: "{{ sansible_nexus_port_check_timeout }}"
+  when:
+    - sansible_nexus_service_start_on_boot
+
+- name: Configure Nexus via Groovy scripts
+  include: configure/configure_scripts.yml
+  when:
+    - sansible_nexus_configuration_enabled

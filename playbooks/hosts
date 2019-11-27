@@ -1,0 +1,25 @@
+[webservers]
+#testserver ansible_host=127.0.0.1 ansible_port=2222
+
+[devtools]
+#testserver ansible_host=127.0.0.1 ansible_port=2222
+#testserver ansible_host=localhost ansible_port=2224
+devtools_server ansible_host=3.124.205.29 ansible_port=22
+
+[qa]
+qa_server ansible_host=18.185.121.23 ansible_port=22
+
+[ci]
+ci_server ansible_host=18.185.124.230 ansible_port=22
+
+[docker]
+docker_server ansible_host=35.157.163.235 ansible_port=22
+
+[deploy:children]
+qa
+ci
+docker
+
+[deploy_jar:children]
+qa
+ci

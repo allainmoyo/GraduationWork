@@ -1,0 +1,5 @@
+---
+  - hosts: "{{ host | default('docker') }}"
+    become: True
+    roles:
+      - pavellucik.build_docker

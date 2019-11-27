@@ -1,0 +1,5 @@
+---
+  - hosts: "{{ host | default('deploy_jar') }}"
+    become: True
+    roles:
+      - pavellucik.deploy_jar

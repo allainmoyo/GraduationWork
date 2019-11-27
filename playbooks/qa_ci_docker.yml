@@ -1,0 +1,53 @@
+---
+- hosts: devtools_server
+  tasks:
+    - name: create .ssh directory for jenkins user
+      become_user: jenkins
+      become: true
+      file:
+        path: /var/lib/jenkins/.ssh
+        owner: jenkins
+        group: jenkins
+        mode: '700'
+        state: directory
+
+    - name: generate key pair
+      become_user: jenkins
+      become: true
+      shell: ssh-keygen -b 2048 -t rsa -f /var/lib/jenkins/.ssh/id_rsa -q -N ""
+      args:
+        creates: /var/lib/jenkins/.ssh/id_rsa
+
+    - name: test public key
+      become_user: jenkins
+      become: true
+      shell: ssh-keygen -l -f /var/lib/jenkins/.ssh/id_rsa.pub
+      changed_when: false
+
+    - name: retrieve public key
+      become_user: jenkins
+      become: true
+      shell: cat /var/lib/jenkins/.ssh/id_rsa.pub
+      register: master_public_key
+      changed_when: false
+
+- hosts: deploy_jar
+  roles:
+     - { role: pavellucik.java8 } #install java-1.8.0
+     - { role: pavellucik.docker } #install Docker as systemd service
+  become: true
+  tasks:
+    - name: add devtools public key to QA CI instances
+      authorized_key:
+        user: ec2-user
+        key: "{{ hostvars['devtools_server'].master_public_key.stdout }}"
+
+- hosts: docker
+  become: true
+  roles:
+    - { role: pavellucik.docker } #install Docker as systemd service
+  tasks:
+    - name: add devtools public key to Docker instances
+      authorized_key:
+        user: ec2-user
+        key: "{{ hostvars['devtools_server'].master_public_key.stdout }}"
