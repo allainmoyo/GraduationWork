@@ -1,5 +1,5 @@
 ---
-- hosts: devtools_server
+- hosts: devtools_aws_server
   tasks:
     - name: create .ssh directory for jenkins user
       become_user: jenkins
