@@ -1,5 +1,5 @@
 ---
-# defaults file for pavellucik.docker
+# defaults file for docker
 docker_edition: 'ce'
 docker_yum_repo_url: https://download.docker.com/linux/centos/docker-ce.repo
 

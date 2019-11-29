@@ -22,4 +22,6 @@ BSD
 Author Information
 ------------------
 
-Pavlo F.
+Evgeniy Naryshkin
+
+allainmoyo@gmail.com

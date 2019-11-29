@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-LABEL maintainer="Pavlo F. pavel.lucik@gmail.com"
-ADD http://{{ nexus_server_ip }}:{{ nexus_server_port }}/service/rest/v1/search/assets/download?sort=version&repository={{ maven_repository }}&maven.groupId={{ maven_groupid }}&maven.artifactId={{ maven_artifactid }}&maven.extension={{ maven_extention }} /javapp.jar
-EXPOSE {{ javapp_service_port }}
+LABEL maintainer="Evgeniy Naryshkin allainmoyo@gmail.com"
+ADD http://{{ NEXUS_SERVER_IP }}:{{ NEXUS_SERVER_PORT }}/service/rest/v1/search/assets/download?sort=version&repository={{ MAVEN_REPOSTITORY }}&maven.groupId={{ MAVEN_GROUPID }}&maven.artifactId={{ MAVEN_ARTIFACTID }}&maven.extension={{ MAVEN_EXTENTION }} /javapp.jar
+EXPOSE {{ JAVAAPP_SERVICE_PORT }}
 ENTRYPOINT ["/usr/bin/java", "-jar", "/javapp.jar"]

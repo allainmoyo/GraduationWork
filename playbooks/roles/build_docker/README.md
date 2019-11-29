@@ -13,15 +13,17 @@ Role Variables
 
 Before use this role you should define variables in defaults/main.yml:
 
-nexus_server_ip:
-nexus_server_port:
-maven_repository:
-maven_groupid:
-maven_artifactid:
-maven_extention:
+NEXUS_SERVER_IP
+NEXUS_SERVER_PORT
+MAVEN_REPOSTITORY
+MAVEN_GROUPID
+MAVEN_ARTIFACTID
+MAVEN_EXTENTION
 
-java_app_group:
-java_app_user:
+DOCKER_GROUP
+DOCKER_USER
+
+JAVAAPP_SERVICE_PORT
 
 Example Playbook
 ----------------
