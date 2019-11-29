@@ -11,7 +11,7 @@ qa_aws_server ansible_host=52.57.103.132 ansible_port=22
 ci_aws_server ansible_host=18.194.122.28 ansible_port=22
 
 [docker]
-docker_aws_server ansible_host=35.157.163.235 ansible_port=22
+docker_aws_server ansible_host=52.59.190.202 ansible_port=22
 
 [deploy:children]
 qa
