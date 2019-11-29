@@ -28,26 +28,26 @@
       become_user: jenkins
       become: true
       shell: cat /var/lib/jenkins/.ssh/id_rsa.pub
-      register: master_public_key
+      register: devtools_public_key
       changed_when: false
 
 - hosts: deploy_jar
   roles:
-     - { role: java8 } #install java-1.8.0
-     - { role: docker } #install Docker as systemd service
+     - { role: java8 }  # install java-1.8.0
+     - { role: docker } # install Docker as systemd service
   become: true
   tasks:
     - name: add devtools public key to QA CI instances
       authorized_key:
         user: ec2-user
-        key: "{{ hostvars['devtools_server'].master_public_key.stdout }}"
+        key: "{{ hostvars['devtools_aws_server'].devtools_public_key.stdout }}"
 
 - hosts: docker
-  become: true
   roles:
-    - { role: docker } #install Docker as systemd service
+     - { role: docker } # install Docker as systemd service
+  become: true
   tasks:
     - name: add devtools public key to Docker instances
       authorized_key:
         user: ec2-user
-        key: "{{ hostvars['devtools_server'].master_public_key.stdout }}"
+        key: "{{ hostvars['devtools_aws_server'].devtools_public_key.stdout }}"

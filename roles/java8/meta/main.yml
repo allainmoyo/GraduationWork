@@ -1,7 +1,6 @@
 galaxy_info:
-  author: Pavel Lucik
+  author: Evgeniy Naryshkin
   description: role for installing java8 from Amazon or centOS repos
-  company: HomeSweetHome
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
