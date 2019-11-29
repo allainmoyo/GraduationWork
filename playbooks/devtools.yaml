@@ -1,13 +1,17 @@
-- name: Configure DevTools instance with Java8, Maven, Git, Jenkins, Ansible and Nexus
+- name: Setup DevTools instance. Install Java8, Maven, Git, Jenkins, Ansible and Nexus tools
   hosts: devtools
   roles:
-     - { role: geerlingguy.swap, swap_file_size_mb: 3072} #this role creates and enables swapfile of the given size to prevent "out of memory" problem with maven build
-     - { role: pavellucik.java8 } #this role installs java-1.8.0
-     - { role: sansible.nexus, sansible_nexus_configuration_admin_password: securepassword} #this role installs and configures Nexus OSS Artifact Repository
-     # - { role: ansible-thoteam.nexus3-oss } #this role installs and configures Nexus OSS Artifact Repository
-     - { role: tecris.maven, maven_major: 3, maven_version: 3.6.2, maven_home_parent_directory: /opt } #this role downloads and setups maven
-     - { role: geerlingguy.repo-epel, centos_version: 7} #this role enables EPEL repository, so we can install Ansible with "yum install"
-  become: True
+    # make swap file; t2:micro has not enough memory for running maven build; "out of memory" error     
+     - { role: geerlingguy.swap, swap_file_size_mb: 3072 }
+    # insall Java 8
+     - { role: java8 } #this role installs java-1.8.0
+    # install Sonatype Nexus Repository and configure initial password
+     - { role: sansible.nexus, sansible_nexus_configuration_admin_password: initpassword }
+    # install Maven 3.6.2
+     - { role: tecris.maven, maven_major: 3, maven_version: 3.6.2, maven_home_parent_directory: /opt }
+    # install the EPEL repository (Extra Packages for Enterprise Linux) for RHEL/CentOS. To install Ansible
+     - { role: geerlingguy.repo-epel, centos_version: 7 } #this role enables EPEL repository, so we can install Ansible with "yum install"
+  become: true
   tasks:
 
     - name: Install Ansible from epel-repository
@@ -33,7 +37,7 @@
         enabled: yes
 
     - name: install Jenkins from Jenkins repos
-      yum :
+      yum:
         name: jenkins
         update_cache: yes
         state: present

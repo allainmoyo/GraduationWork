@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role for deplyment of the latest artifact from Nexus repository to QA and CI environment
+This deplys latest artifact from Nexus repository to QA and CI environment
 
 Requirements
 ------------
@@ -13,15 +13,18 @@ Role Variables
 
 Before use this role you should define variables in defaults/main.yml:
 
-nexus_server_ip:
-nexus_server_port:
-maven_repository:
-maven_groupid:
-maven_artifactid:
-maven_extention:
+NEXUS_SERVER_IP
+NEXUS_SERVER_PORT
+MAVEN_REPOSTITORY
+MAVEN_GROUPID
+MAVEN_ARTIFACTID
+MAVEN_EXTENTION
 
-java_app_group:
-java_app_user:
+JAVAAPP_GROUP
+JAVAAPP_USER
+
+SYSTEMD_SERVICE_NAME
+JAVAAPP_SERVICE_PORT
 
 Example Playbook
 ----------------
@@ -40,4 +43,6 @@ BSD
 Author Information
 ------------------
 
-Pavlo F.
+Evgeniy Naryshkin
+
+allainmoyo@gmail.com

@@ -1,0 +1,10 @@
+---
+- name: copy Dockerfile with parameters (port number defines by user) from jinja template
+  template :
+    src: Dockerfile.j2
+    dest: /home/{{ DOCKER_USER }}/Dockerfile
+
+- name: build docker image
+  become_user: docker
+  become: true
+  command: "docker build -f /home/{{ DOCKER_USER }}/Dockerfile ."

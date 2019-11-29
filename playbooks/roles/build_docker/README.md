@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role for deplyment of the latest artifact from Nexus repository to QA and CI environment
+Role deplys latest version of artifact from Nexus repository to QA and CI environments on AWS
 
 Requirements
 ------------
@@ -39,5 +39,6 @@ BSD
 
 Author Information
 ------------------
+Eugene
 
-Pavlo F.
+allainmoyo@gmail.com

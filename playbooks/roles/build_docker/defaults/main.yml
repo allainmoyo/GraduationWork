@@ -1,0 +1,13 @@
+---
+# defaults variables file for deploy_jar role
+NEXUS_SERVER_IP: '172.31.44.167'
+NEXUS_SERVER_PORT: 8081
+MAVEN_REPOSTITORY: maven-repository
+MAVEN_GROUPID: java
+MAVEN_ARTIFACTID: spring-boot-smoke-test-web-ui
+MAVEN_EXTENTION: jar
+
+DOCKER_GROUP: docker
+DOCKER_USER: docker
+
+JAVAAPP_SERVICE_PORT: 8080

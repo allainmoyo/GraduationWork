@@ -33,8 +33,8 @@
 
 - hosts: deploy_jar
   roles:
-     - { role: pavellucik.java8 } #install java-1.8.0
-     - { role: pavellucik.docker } #install Docker as systemd service
+     - { role: java8 } #install java-1.8.0
+     - { role: docker } #install Docker as systemd service
   become: true
   tasks:
     - name: add devtools public key to QA CI instances
@@ -45,7 +45,7 @@
 - hosts: docker
   become: true
   roles:
-    - { role: pavellucik.docker } #install Docker as systemd service
+    - { role: docker } #install Docker as systemd service
   tasks:
     - name: add devtools public key to Docker instances
       authorized_key:

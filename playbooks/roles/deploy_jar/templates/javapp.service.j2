@@ -1,0 +1,13 @@
+[Unit]
+Description=GW Artifact Java
+
+[Service]
+WorkingDirectory=/home/{{ JAVAAPP_USER }}
+ExecStart=/usr/bin/java -Xms128m -Xmx256m -jar temp.jar --server.port={{ JAVAAPP_SERVICE_PORT }}
+User={{ JAVAAPP_USER }}
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
