@@ -5,7 +5,7 @@
 devtools_aws_server ansible_host=35.158.165.185 ansible_port=22
 
 [qa]
-qa_aws_server ansible_host=18.185.108.50 ansible_port=22
+qa_aws_server ansible_host=3.125.114.126 ansible_port=22
 
 [ci]
 ci_aws_server ansible_host=52.28.107.220 ansible_port=22
