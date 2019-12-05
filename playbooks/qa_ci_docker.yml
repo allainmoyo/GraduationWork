@@ -1,5 +1,5 @@
 ---
-- hosts: devtools_aws_server
+- hosts: devtools #tag_Name_DevTools #devtools_aws_server
   tasks:
     - name: create .ssh directory for jenkins user
       become_user: jenkins
@@ -30,24 +30,62 @@
       shell: cat /var/lib/jenkins/.ssh/id_rsa.pub
       register: devtools_public_key
       changed_when: false
+      tags:
+         - currun
 
-- hosts: deploy_jar
+    #- debug: var=hostvars
+    #  tags:
+    #     - currun
+    #- name: Display hostvars tag_Name_DevTools
+    #  debug:
+    #    var: hostvars
+
+    #- copy:
+    #    content: "{{ hostvars }}"
+    #    dest: ~/hostvars.txt
+
+
+#- hosts: ['tag_Name_CI', 'tag_Name_QA']
+- hosts: deploy_artifact
   roles:
      - { role: java8 }  # install java-1.8.0
      - { role: docker } # install Docker as systemd service
   become: true
   tasks:
-    - name: add devtools public key to QA CI instances
+    #- debug: var=ansible_facts
+    #  tags:
+    #     - currun
+
+    #- name: add devtools public key to {{ ec2_tag_Name }}:{{ ansible_host }}  instance
+    - name: add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
       authorized_key:
         user: ec2-user
         key: "{{ hostvars['devtools_aws_server'].devtools_public_key.stdout }}"
+      tags:
+         - currun
 
-- hosts: docker
+#hostvars['52.29.122.21']['groups']['tag_Name_DevTools']
+#hostvars['52.29.122.21']['ansible_facts'].devtools_public_key.stdout
+- hosts: docker #tag_Name_Docker
   roles:
      - { role: docker } # install Docker as systemd service
+     - { role: geerlingguy.repo-epel, centos_version: 7 } #this role enables EPEL repository, so we can install Ansible with "yum install"
   become: true
   tasks:
-    - name: add devtools public key to Docker instances
+    - name: add devtools public key to {{ ec2_tag_Name }}:{{ ansible_host }} instance
+    #- name: add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
       authorized_key:
         user: ec2-user
         key: "{{ hostvars['devtools_aws_server'].devtools_public_key.stdout }}"
+      tags:
+         - currun
+
+    - name: install pip2 to enable docker module for Ansible
+      yum:
+        name: python-pip
+        update_cache: yes
+        state: present
+
+    - name: install docker module for Ansible
+      pip:
+        name: docker

@@ -14,6 +14,9 @@
   set_fact:
     sansible_nexus_is_fresh_install: "{{ 'yes' if sansible_nexus_fresh_install_check.status == 200 else 'no' }}"
 
+    #- debug:
+    #msg: "sansible_nexus_is_fresh_install {{ sansible_nexus_is_fresh_install }}"
+
 - name: Update Nexus default admin password
   import_tasks: groovy/execute.yml
   vars:
@@ -34,6 +37,7 @@
     script_root_path: "{{ role_path }}/files"
     args:
       enabled: "{{ sansible_nexus_configuration_allow_anonymous }}"
+  when: sansible_nexus_is_fresh_install == true
 
 - name: Ensure Nexus base URL
   import_tasks: groovy/execute.yml

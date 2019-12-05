@@ -1,5 +1,5 @@
 - name: Setup DevTools instance. Install Java8, Maven, Git, Jenkins, Ansible and Nexus tools
-  hosts: devtools
+  hosts: tag_Name_DevTools #devtools
   roles:
     # make swap file; t2:micro has not enough memory for running maven build; "out of memory" error     
      - { role: geerlingguy.swap, swap_file_size_mb: 3072 }
