@@ -2,7 +2,7 @@
 dependencies:
   - role: sansible.users_and_groups
     sansible_users_and_groups_groups:
-      - name: "{{ DOCKER_GROUP }}"
+      - name: "{{ docker_group }}"
     sansible_users_and_groups_users:
-      - name: "{{ DOCKER_USER }}"
-        group: "{{ DOCKER_GROUP }}"
+      - name: "{{ docker_user }}"
+        group: "{{ docker_group }}"

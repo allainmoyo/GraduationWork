@@ -1,0 +1,46 @@
+---
+# Tasks file for deploy_docker role
+
+- name: Copy daemon.json
+  become: true
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    force: no
+
+- name: Restart docker service
+  become: true
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+
+- name: Login to the Nexus docker repository
+  become_user: "{{ DOCKER_USER }}"
+  become: true
+  docker_login:
+    registry: http://{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}
+    username: "{{ MAVEN_LOGIN }}"
+    password: "{{ MAVEN_PASSWORD }}"
+    reauthorize: yes
+
+- name: Force pull of the latest docker image
+  become_user: "{{ DOCKER_USER }}"
+  become: true
+  docker_image:
+    name: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/{{ DOCKER_IMAGE_NAME }}:latest"
+    state: present
+    force: yes
+    source: pull
+
+- name: Restart the container
+  become_user: "{{ DOCKER_USER }}"
+  become: true
+  docker_container:
+    name: javapp
+    image: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/{{ DOCKER_IMAGE_NAME }}:latest"
+    state: started
+    restart: yes
+    restart_policy: unless-stopped
+    published_ports:
+     - "{{ JAVAPP_SERVICE_DEPLOY_PORT }}:{{ JAVAPP_SEVICE_PORT }}"

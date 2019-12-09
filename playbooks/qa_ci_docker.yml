@@ -1,7 +1,7 @@
 ---
 - hosts: devtools #tag_Name_DevTools #devtools_aws_server
   tasks:
-    - name: create .ssh directory for jenkins user
+    - name: Create .ssh directory for jenkins user
       become_user: jenkins
       become: true
       file:
@@ -11,24 +11,24 @@
         mode: '700'
         state: directory
 
-    - name: generate key pair
+    - name: Generate new key pair
       become_user: jenkins
       become: true
       shell: ssh-keygen -b 2048 -t rsa -f /var/lib/jenkins/.ssh/id_rsa -q -N ""
       args:
         creates: /var/lib/jenkins/.ssh/id_rsa
 
-    - name: test public key
+    - name: Test public key
       become_user: jenkins
       become: true
       shell: ssh-keygen -l -f /var/lib/jenkins/.ssh/id_rsa.pub
       changed_when: false
 
-    - name: retrieve public key
+    - name: Get public key in variable
       become_user: jenkins
       become: true
       shell: cat /var/lib/jenkins/.ssh/id_rsa.pub
-      register: devtools_public_key
+      register: DEVTOOLS_PUBLIC_KEY
       changed_when: false
       tags:
          - currun
@@ -60,7 +60,7 @@
     - name: add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
       authorized_key:
         user: ec2-user
-        key: "{{ hostvars['devtools_aws_server'].devtools_public_key.stdout }}"
+        key: "{{ hostvars['devtools_aws_server'].DEVTOOLS_PUBLIC_KEY.stdout }}"
       tags:
          - currun
 
@@ -81,6 +81,7 @@
          - currun
 
     - name: install pip2 to enable docker module for Ansible
+    # docker login abd docker image
       yum:
         name: python-pip
         update_cache: yes

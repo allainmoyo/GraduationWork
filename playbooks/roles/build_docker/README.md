@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role deplys latest version of artifact from Nexus repository to QA and CI environments on AWS
+Role deploys latest version of artifact from Nexus repository to QA and CI environments on AWS
 
 Requirements
 ------------
@@ -13,17 +13,22 @@ Role Variables
 
 Before use this role you should define variables in defaults/main.yml:
 
-NEXUS_SERVER_IP
-NEXUS_SERVER_PORT
-MAVEN_REPOSTITORY
-MAVEN_GROUPID
-MAVEN_ARTIFACTID
-MAVEN_EXTENTION
+NNEXUS_SERVER_IP
+NEXUS_SERVER_PORT 		Default: 8081
+NEXUS_DOCKER_PORT 		Default: 5000
+MAVEN_REPOSTITORY 		Default: maven-repository
+MAVEN_LOGIN 			Default: admin
+MAVEN_PASSWORD			Default: initpass
+MAVEN_GROUPID			Default: java
+MAVEN_ARTIFACTID		Default: spring-boot-smoke-test-web-ui
+MAVEN_EXTENTION			Default: jar
 
-DOCKER_GROUP
-DOCKER_USER
+DOCKER_GROUP			Default: docker
+DOCKER_USER			Default: docker
 
-JAVAAPP_SERVICE_PORT
+JAVAAPP_SERVICE_PORT: 8080
+
+BUILD_NUMBER: "{{ lookup('file', '/var/lib/jenkins/build.number', errors='warn') }}"
 
 Example Playbook
 ----------------
@@ -41,6 +46,6 @@ BSD
 
 Author Information
 ------------------
-Eugene
+Evgeniy Naryshkin
 
-allainmoyo@gmail.com
+evgeniy-naryshkin@gmail.com

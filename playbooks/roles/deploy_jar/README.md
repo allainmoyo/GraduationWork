@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This deplys latest artifact from Nexus repository to QA and CI environment
+Deploys latest artifact version from Nexus repository to QA and CI environment
 
 Requirements
 ------------
@@ -14,17 +14,18 @@ Role Variables
 Before use this role you should define variables in defaults/main.yml:
 
 NEXUS_SERVER_IP
-NEXUS_SERVER_PORT
-MAVEN_REPOSTITORY
-MAVEN_GROUPID
-MAVEN_ARTIFACTID
-MAVEN_EXTENTION
+NEXUS_SERVER_PORT             Defatul: 8081
+MAVEN_REPOSTITORY             Defatul: maven-repository
+MAVEN_GROUPID                 Defatul: java
+MAVEN_ARTIFACTID              Defatul: spring-boot-smoke-test-web-ui
+MAVEN_EXTENTION               Defatul: jar
 
-JAVAAPP_GROUP
-JAVAAPP_USER
+JAVAAPP_GROUP                 Defatul: appmgr
+JAVAAPP_USER                  Defatul: jvmapps
 
-SYSTEMD_SERVICE_NAME
-JAVAAPP_SERVICE_PORT
+SYSTEMD_SERVICE_NAME          Defatul: javapp
+JAVAAPP_SERVICE_PORT          Defatul: 8080
+
 
 Example Playbook
 ----------------
@@ -45,4 +46,4 @@ Author Information
 
 Evgeniy Naryshkin
 
-allainmoyo@gmail.com
+evgeniy-naryshkin@gmail.com

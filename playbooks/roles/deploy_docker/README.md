@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role for deplyment of the latest artifact from Nexus repository to QA and CI environment
+Role for deploying docker container with latest maven artifact from Nexus docker registry
 
 Requirements
 ------------
@@ -14,14 +14,14 @@ Role Variables
 Before use this role you should define variables in defaults/main.yml:
 
 nexus_server_ip:
-nexus_server_port:
-maven_repository:
-maven_groupid:
-maven_artifactid:
-maven_extention:
-
-java_app_group:
-java_app_user:
+nexus_server_docker_port:
+maven_login:
+maven_password:
+docker_group:
+docker_user:
+docker_image_name:
+javapp_service_port:
+javapp_service_deploy_port:
 
 Example Playbook
 ----------------
