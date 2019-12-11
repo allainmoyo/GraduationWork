@@ -1,5 +1,5 @@
 ---
-  - hosts: "{{ host | default('deploy_jar') }}"
-    become: true
+  - hosts: "{{ host | default('deploy_artifact') }}"
+    become: True
     roles:
       - deploy_jar

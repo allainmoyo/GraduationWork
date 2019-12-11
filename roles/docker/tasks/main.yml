@@ -1,5 +1,5 @@
 ---
-# tasks file for pavellucik.docker
+# tasks file for docker
   - include: install.yml
     tags:
       - docker_install

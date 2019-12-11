@@ -1,20 +1,21 @@
 - name: Setup DevTools instance. Install Java8, Maven, Git, Jenkins, Ansible and Nexus tools
-  hosts: tag_Name_DevTools #devtools
+  hosts: devtools
   roles:
-    # make swap file; t2:micro has not enough memory for running maven build; "out of memory" error     
-     - { role: geerlingguy.swap, swap_file_size_mb: 3072 }
-    # insall Java 8
-     - { role: java8 } #this role installs java-1.8.0
-    # install Sonatype Nexus Repository and configure initial password
-     - { role: sansible.nexus, sansible_nexus_configuration_admin_password: initpassword }
-    # install Maven 3.6.2
+    # Create and enable 3Gb swapfile to solve "out of memory" error
+    # during maven build
+     - { role: geerlingguy.swap, swap_file_size_mb: 3072}
+     # Install java-1.8.0
+     - { role: java8 }
+     # Install and configure Nexus3 OSS Artifact Repository
+     - { role: sansible.nexus, sansible_nexus_configuration_admin_password: initpass }
+     # Download and setup maven 3.6.2
      - { role: tecris.maven, maven_major: 3, maven_version: 3.6.2, maven_home_parent_directory: /opt }
-    # install the EPEL repository (Extra Packages for Enterprise Linux) for RHEL/CentOS. To install Ansible
-     - { role: geerlingguy.repo-epel, centos_version: 7 } #this role enables EPEL repository, so we can install Ansible with "yum install"
-  become: true
+     # Add EPEL repository, to be able to install Ansible with "yum install" command
+     - { role: geerlingguy.repo-epel, centos_version: 7}
+  become: True
   tasks:
 
-    - name: Install Ansible from epel-repository
+    - name: Install Ansible from EPEL-repository
       yum:
         name: ansible
         update_cache: yes
@@ -26,7 +27,7 @@
         update_cache: yes
         state: present
 
-    - name: Ensure Jenkins Repository is Installed
+    - name: Check if Jenkins Repository is Installed
       yum_repository:
         name: jenkins
         state: present
@@ -36,8 +37,8 @@
         gpgcheck: yes
         enabled: yes
 
-    - name: install Jenkins from Jenkins repos
-      yum:
+    - name: Install Jenkins from Jenkins repos
+      yum :
         name: jenkins
         update_cache: yes
         state: present

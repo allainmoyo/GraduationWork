@@ -1,15 +1,15 @@
 ---
-- name: check if Docker is installed
+- name: Check if Docker is installed
   package_facts:
     manager: "auto"
 
-- name: start Docker service on CentOS
+- name: Start Docker service on CentOS
   service:
     name: docker
     state: started
   when: "'docker-ce' in ansible_facts.packages"
 
-- name: start Docker service on Amazon Linux2
+- name: Start Docker service on Amazon Linux2
   service:
     name: docker
     state: started

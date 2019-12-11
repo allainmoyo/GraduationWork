@@ -1,16 +1,16 @@
 ---
 - name: Copy Dockerfile with parameters (port number defines by user) from jinja template
+become_user: "{{ DOCKER_USER }}"
+become: true
   template :
     src: Dockerfile.j2
     dest: /home/{{ DOCKER_USER }}/Dockerfile
-
 
 - name: Copy daemon.json from jinja template
   become: true
   template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
-
 
 - name: Restart docker service
   become: true
@@ -19,9 +19,8 @@
     daemon_reload: yes
     name: docker
 
-
 - name: Login to the Nexus docker repository
-  become_user: docker
+  become_user: "{{ DOCKER_USER }}"
   become: true
   docker_login:
     registry: http://{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}
@@ -29,14 +28,25 @@
     password: "{{ MAVEN_PASSWORD }}"
     reauthorize: yes
 
-
-- name: Build Spring boot image from repository using build variables
-  become_user: docker
+- name: Build Spring boot project image from repository using build variables and push to Nexus docker registry
+  become_user: "{{ DOCKER_USER }}"
   become: true
   docker_image:
-    name: spring-boot-smoke-test-web-ui
-    repository: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/javapp"
+    name: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/{{ DOCKER_IMAGE_NAME }}"
     tag: "{{ BUILD_NUMBER }}"
+    push: yes
     build:
       path: /home/{{ DOCKER_USER }}/
+      nocache: yes
+      rm: yes
     source: build
+
+- name: Add tag :latest to the last successfully built image
+  become_user: "{{ DOCKER_USER }}"
+  become: true
+  docker_image:
+    name: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/{{ DOCKER_IMAGE_NAME }}:{{ BUILD_NUMBER }}"
+    repository: "{{ NEXUS_SERVER_IP }}:{{ NEXUS_DOCKER_PORT }}/{{ DOCKER_IMAGE_NAME }}:latest"
+    force_tag: yes
+    push: yes
+    state: present

@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Deploys latest artifact version from Nexus repository to QA and CI environment
+Role for deployment of the latest artifact from Nexus repository to QA and CI environment
 
 Requirements
 ------------
@@ -14,17 +14,17 @@ Role Variables
 Before use this role you should define variables in defaults/main.yml:
 
 NEXUS_SERVER_IP
-NEXUS_SERVER_PORT             Defatul: 8081
-MAVEN_REPOSTITORY             Defatul: maven-repository
-MAVEN_GROUPID                 Defatul: java
-MAVEN_ARTIFACTID              Defatul: spring-boot-smoke-test-web-ui
-MAVEN_EXTENTION               Defatul: jar
+NEXUS_SERVER_PORT               Default: 8081
+MAVEN_REPOSTITORY               Default: maven-repository
+MAVEN_GROUPID                   Default: java
+MAVEN_ARTIFACTID                Default: spring-boot-smoke-test-web-ui
+MAVEN_EXTENTION                 Default: jar
 
-JAVAAPP_GROUP                 Defatul: appmgr
-JAVAAPP_USER                  Defatul: jvmapps
+JAVAAPP_GROUP                   Default: appmgr
+JAVAAPP_USER                    Default: jvmapps
 
-SYSTEMD_SERVICE_NAME          Defatul: javapp
-JAVAAPP_SERVICE_PORT          Defatul: 8080
+SYSTEMD_SERVICE_NAME            Default: javapp
+JAVAAPP_SERVICE_PORT            Default: 8080
 
 
 Example Playbook
@@ -34,7 +34,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: rolename }
 
 License
 -------
@@ -44,6 +44,4 @@ BSD
 Author Information
 ------------------
 
-Evgeniy Naryshkin
-
-evgeniy-naryshkin@gmail.com
+Evgeniy Naryshkin <mailto:evgeniy_naryshkin@gmail.com>

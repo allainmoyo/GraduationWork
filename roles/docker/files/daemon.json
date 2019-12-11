@@ -1,4 +1,4 @@
 {
-"exec-opts": [ "native.cgroupdriver=systemd" ],
-"storage-driver": "devicemapper"
+  "exec-opts": [ "native.cgroupdriver=systemd" ],
+  "storage-driver": "devicemapper"
 }

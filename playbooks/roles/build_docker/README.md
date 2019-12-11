@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role deploys latest version of artifact from Nexus repository to QA and CI environments on AWS
+Building docker image form openjdk:8-jre-alpine image as base and including latest maven artifact from the Nexus3 repository. Then the image is being pushed into Nexus DTR with 'latest' and 'build_number' tags.
 
 Requirements
 ------------
@@ -13,22 +13,24 @@ Role Variables
 
 Before use this role you should define variables in defaults/main.yml:
 
-NNEXUS_SERVER_IP
-NEXUS_SERVER_PORT 		Default: 8081
-NEXUS_DOCKER_PORT 		Default: 5000
-MAVEN_REPOSTITORY 		Default: maven-repository
-MAVEN_LOGIN 			Default: admin
-MAVEN_PASSWORD			Default: initpass
-MAVEN_GROUPID			Default: java
-MAVEN_ARTIFACTID		Default: spring-boot-smoke-test-web-ui
-MAVEN_EXTENTION			Default: jar
+Before use this role you should define variables in defaults/main.yml:
 
-DOCKER_GROUP			Default: docker
-DOCKER_USER			Default: docker
+NEXUS_SERVER_IP
+NEXUS_SERVER_PORT 		  Default: 8081
+NEXUS_DOCKER_PORT       Default: 5000
+MAVEN_REPOSTITORY       Default: maven-repository
+MAVEN_LOGIN             Default: admin
+MAVEN_PASSWORD          Default: initpass
+MAVEN_GROUPID           Default: java
+MAVEN_ARTIFACTID        Default: spring-boot-smoke-test-web-ui
+MAVEN_EXTENTION         Default: jar
 
-JAVAAPP_SERVICE_PORT: 8080
+DOCKER_GROUP            Default: docker
+DOCKER_USER             Default: docker
 
-BUILD_NUMBER: "{{ lookup('file', '/var/lib/jenkins/build.number', errors='warn') }}"
+JAVAAPP_SERVICE_PORT    Default: 8080
+
+BUILD_NUMBER            from file "{{ lookup('file', '/var/lib/jenkins/build.number', errors='warn') }}"
 
 Example Playbook
 ----------------
@@ -37,7 +39,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: username }
 
 License
 -------
@@ -46,6 +48,6 @@ BSD
 
 Author Information
 ------------------
-Evgeniy Naryshkin
 
-evgeniy-naryshkin@gmail.com
+
+Evgeniy Naryshkin <mailto:evgeniy_naryshkin@gmail.com>

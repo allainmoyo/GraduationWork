@@ -10,7 +10,7 @@ Parameters:
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
-    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.    
 #  ImageId:
 #    Description: Image ID to launch EC2 instances.
 #    Type: AWS::EC2::Image::Id
@@ -95,13 +95,11 @@ Resources:
       Tags:
       - Key: "Name"
         Value: "DevTools"
-      - Key: "Group"
-        Value: "GraduationWork"
       KeyName: !Ref KeyName
-      ImageId: !FindInMap
+      ImageId: !FindInMap 
         - AWSRegionArch2AMI
         - !Ref 'AWS::Region'
-        - !FindInMap
+        - !FindInMap 
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
@@ -115,13 +113,11 @@ Resources:
       Tags:
       - Key: "Name"
         Value: "CI"
-      - Key: "Group"
-        Value: "GraduationWork"
       KeyName: !Ref KeyName
-      ImageId: !FindInMap
+      ImageId: !FindInMap 
         - AWSRegionArch2AMI
         - !Ref 'AWS::Region'
-        - !FindInMap
+        - !FindInMap 
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
@@ -135,13 +131,11 @@ Resources:
       Tags:
       - Key: "Name"
         Value: "QA"
-      - Key: "Group"
-        Value: "GraduationWork"
       KeyName: !Ref KeyName
-      ImageId: !FindInMap
+      ImageId: !FindInMap 
         - AWSRegionArch2AMI
         - !Ref 'AWS::Region'
-        - !FindInMap
+        - !FindInMap 
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
@@ -155,13 +149,11 @@ Resources:
       Tags:
       - Key: "Name"
         Value: "Docker"
-      - Key: "Group"
-        Value: "GraduationWork"
       KeyName: !Ref KeyName
-      ImageId: !FindInMap
+      ImageId: !FindInMap 
         - AWSRegionArch2AMI
         - !Ref 'AWS::Region'
-        - !FindInMap
+        - !FindInMap 
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch

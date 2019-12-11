@@ -22,6 +22,4 @@ BSD
 Author Information
 ------------------
 
-Evgeniy Naryshkin
-
-allainmoyo@gmail.com
+Evgeniy Naryshkin <mailto:evgeniy_naryshkin@gmail.com>

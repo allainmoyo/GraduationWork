@@ -2,7 +2,7 @@
 dependencies:
   - role: sansible.users_and_groups
     sansible_users_and_groups_groups:
-      - name: "{{ JAVAAPP_GROUP }}"
+      - name: "{{ java_app_group }}"
     sansible_users_and_groups_users:
-      - name: "{{ JAVAAPP_USER }}"
-        group: "{{ JAVAAPP_GROUP }}"
+      - name: "{{ java_app_user }}"
+        group: "{{ java_app_group }}"

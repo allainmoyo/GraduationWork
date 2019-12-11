@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Role for deploying docker container with latest maven artifact from Nexus docker registry
+Deploying docker container with latest maven artifact from Nexus3 docker registry
 
 Requirements
 ------------
@@ -13,15 +13,18 @@ Role Variables
 
 Before use this role you should define variables in defaults/main.yml:
 
-nexus_server_ip:
-nexus_server_docker_port:
-maven_login:
-maven_password:
-docker_group:
-docker_user:
-docker_image_name:
-javapp_service_port:
-javapp_service_deploy_port:
+NEXUS_SERVER_IP
+NEXUS_DOCKER_PORT                 Default: 5000
+#DOCKER_REPOSTITORY                 Default: docker-repository
+MAVEN_LOGIN                       Default: admin
+MAVEN_PASSWORD                    Default: initpass, must be changed
+
+DOCKER_GROUP                      Default: docker
+DOCKER_USER                       Default: docker
+DOCKER_IMAGE_NAME                 Default: javapp
+
+JAVAPP_SEVICE_PORT                Default: 8080
+JAVAPP_SERVICE_DEPLOY_PORT        Default: 8082
 
 Example Playbook
 ----------------
@@ -30,7 +33,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: rolename }
 
 License
 -------
@@ -40,4 +43,4 @@ BSD
 Author Information
 ------------------
 
-Pavlo F.
+Evgeniy Naryshkin <mailto:evgeniy_naryshkin@gmail.com>

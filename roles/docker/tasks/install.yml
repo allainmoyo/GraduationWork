@@ -1,41 +1,41 @@
 ---
   - include: uninstall_old.yml
 
-  - name: install prerequisites for Docker
+  - name: Install requirements for Docker
     yum:
       name: "{{ item }}"
       state: present
       update_cache: yes
     loop:
-      "{{ install_prerequisites_list }}"
+      "{{ REQUIREMENTS_LIST }}"
     when: ansible_os_family == 'RedHat' and ansible_distribution == 'CentOS'
 
   - name: add Docker repository.
     get_url:
-      url: "{{ docker_yum_repo_url }}"
-      dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
+      url: "{{ DOCKER_REPO_URL }}"
+      dest: '/etc/yum.repos.d/docker-{{ DOCKER_EDITION }}.repo'
       owner: root
       group: root
       mode: 0644
     when: ansible_os_family == 'RedHat' and ansible_distribution == 'CentOS'
 
-  - name: install the latest version of Docker Engine and containerd for CentOS
+  - name: Install the latest version of Docker Engine and containerd for CentOS
     yum:
       name: "{{ item }}"
       state: present
       update_cache: yes
     loop:
-      "{{ install_uninstall_list }}"
+      "{{ INSTAL_UNINSTALL_LIST }}"
     when: ansible_os_family == 'RedHat' and ansible_distribution == 'CentOS'
 
-  - name: install Docker Engine and containerd for Amazon Linux2
+  - name: Install Docker Engine and containerd for Amazon Linux2
     yum:
       name: docker
       state: present
       update_cache: yes
     when: ansible_os_family == 'RedHat' and ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2'
 
-  - name: copy daemon.json config file to enable Devicemapper Storage Driver on CentOS
+  - name: Copy daemon.json config file to enable Devicemapper Storage Driver on CentOS
     copy:
       src: daemon.json
       dest: /etc/docker/
@@ -43,6 +43,16 @@
       group: root
       mode: '0644'
     when: ansible_os_family == 'RedHat' and ansible_distribution == 'CentOS'
+
+  - name: Install pip2 to enable docker module for Ansible
+    yum:
+      name: python2-pip
+      update_cache: yes
+      state: present
+
+  - name: Install docker module for Ansible
+    pip:
+      name: docker
 
   - include: start.yml
 
