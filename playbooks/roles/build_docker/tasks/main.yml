@@ -1,7 +1,7 @@
 ---
 - name: Copy Dockerfile with parameters (port number defines by user) from jinja template
-become_user: "{{ DOCKER_USER }}"
-become: true
+  become_user: "{{ DOCKER_USER }}"
+  become: true
   template :
     src: Dockerfile.j2
     dest: /home/{{ DOCKER_USER }}/Dockerfile
