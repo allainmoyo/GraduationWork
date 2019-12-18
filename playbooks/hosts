@@ -2,16 +2,16 @@
 #testserver ansible_host=127.0.0.1 ansible_port=22
 
 [devtools]
-devtools_aws_server ansible_host=35.159.11.237 ansible_port=22
+devtools_aws_server ansible_host=18.197.145.255 ansible_port=22
 
 [qa]
-qa_aws_server ansible_host=18.194.207.85 ansible_port=22
+qa_aws_server ansible_host=18.197.129.253 ansible_port=22
 
 [ci]
-ci_aws_server ansible_host=35.156.22.145 ansible_port=22
+ci_aws_server ansible_host=18.194.55.85 ansible_port=22
 
 [docker]
-docker_aws_server ansible_host=18.194.207.85 ansible_port=22
+docker_aws_server ansible_host=54.93.79.18 ansible_port=22
 
 [deploy:children]
 qa
