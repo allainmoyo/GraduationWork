@@ -2,7 +2,11 @@
 # defaults file for deploy_jar role
 
 # local ip for DevTools instance
+<<<<<<< HEAD
 NEXUS_SERVER_IP: "{{ devtools_aws_server_local }}"
+=======
+NEXUS_SERVER_IP: {{ devtools_aws_server_local }}
+>>>>>>> e99e439be2813566b07300eb206960c768f419e1
 NEXUS_SERVER_PORT: 8081
 MAVEN_REPOSTITORY: maven-repository
 MAVEN_GROUPID: java
