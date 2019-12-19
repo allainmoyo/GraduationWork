@@ -46,7 +46,7 @@
     - { role: docker }
   become: true
   tasks:
-    - name: Add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
+    - name: "Add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance"
       authorized_key:
         user: "{{ instance_user }}"
         key: "{{ hostvars['devtools_aws_server'].DEVTOOLS_PUBLIC_KEY.stdout }}"
@@ -60,7 +60,7 @@
   roles:
     - { role: docker } #install Docker as systemd service
   tasks:
-    - name: add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
+    - name: "add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance"
       authorized_key:
-        user: ec2-user
+        user: "{{ instance_user }}"
         key: "{{ hostvars['devtools_aws_server'].DEVTOOLS_PUBLIC_KEY.stdout }}"
