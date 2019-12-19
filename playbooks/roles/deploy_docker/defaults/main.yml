@@ -2,7 +2,7 @@
 # defaults for deploy_docker role
 
 # local IP for Devtools instance
-NEXUS_SERVER_IP: '172.31.40.90'
+NEXUS_SERVER_IP: {{ devtools_aws_server_local }}
 NEXUS_DOCKER_PORT: 5000
 #MAVEN_REPOSTITORY: docker-repository
 MAVEN_LOGIN: dell
