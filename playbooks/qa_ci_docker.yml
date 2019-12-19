@@ -48,7 +48,7 @@
   tasks:
     - name: Add devtools public key to {{ inventory_hostname }}:{{ ansible_host }} instance
       authorized_key:
-        user: ec2-user
+        user: "{{ instance_user }}"
         key: "{{ hostvars['devtools_aws_server'].DEVTOOLS_PUBLIC_KEY.stdout }}"
 
 

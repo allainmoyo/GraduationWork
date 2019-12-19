@@ -9,7 +9,7 @@
      # Install and configure Nexus3 OSS Artifact Repository
      - { role: sansible.nexus, sansible_nexus_configuration_admin_password: initpass }
      # Download and setup maven 3.6.2
-     - { role: tecris.maven, maven_major: 3, maven_version: 3.6.2, maven_home_parent_directory: /opt }
+     - { role: tecris.maven, maven_major: 3, maven_version: 3.6.3, maven_home_parent_directory: /opt }
      # Add EPEL repository, to be able to install Ansible with "yum install" command
      - { role: geerlingguy.repo-epel, centos_version: 7}
   become: True
