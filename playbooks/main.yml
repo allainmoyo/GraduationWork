@@ -1,6 +1,7 @@
 ---
 # defaults variables file for build_docker role
 # local ip for DevTools instance
+
 NEXUS_SERVER_IP: "{{ devtools_aws_server_local }}"
 NEXUS_SERVER_PORT: 8081
 NEXUS_DOCKER_PORT: 5000

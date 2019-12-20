@@ -14,7 +14,6 @@
      - { role: geerlingguy.repo-epel, centos_version: 7}
   become: True
   tasks:
-
     - name: Install Ansible from EPEL-repository
       yum:
         name: ansible
